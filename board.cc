@@ -48,7 +48,20 @@ void Board::setScore(int incr) {
 	score += incr;
 }
 
-
+void Board::init(ifstream& f){
+	string aline;
+	for(int i=0; i<10;i++){
+		getline(f,aline);
+		istringstream ss1(aline);
+		for(int j=0;j<10;j++){
+			int c;
+			char s,t;
+			ss1 >> s >> t >> c;
+			theBoard[i][j] = new Square(i,j,c,s,t);
+		}
+	}
+	f >> leftover;
+}
 
 
 //  Board(int seed);
