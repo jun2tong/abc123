@@ -6,10 +6,6 @@
 #include "square.h"
 using namespace std;
 
-//class Board{
-//  Square *theBoard[10][10];
-//  int level;
-//  int score;
 void Board::clearBoard(){
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
@@ -19,14 +15,12 @@ void Board::clearBoard(){
     }
 }
 
-//public:
 Board::Board():level(0),score(0){}
 
-Board::Board(ifstream &f):level(0),score(0){
+void Board::init(ifstream &f){
     string aline;
     for(int i=0;i<10;i++){
         getline(f,aline);
-        cout << aline << " this is aline" << endl;
         istringstream ss1(aline);
         for(int j=0;j<10;j++){
             int c;
@@ -36,8 +30,12 @@ Board::Board(ifstream &f):level(0),score(0){
         }
     }
     f >> leftover;
-    cout << leftover << endl;
 }
+
+void Board::init(int seed){
+	
+}
+
 
 // getters & setters
 int Board::getScore() {
