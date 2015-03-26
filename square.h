@@ -9,12 +9,9 @@ class Square{
     int r; 
     int c;
     textDisplay *td;
-//  Square *neighbours[4];
-    int numNeighbours;
     bool locked;
 public:
     Square(int r, int c, int colour, char t=0, char s=0);
-    //void mutatesquare(int x, int y, int c, char t=0, char s=0);
     int getColour();
     char getType();
     char getSpecial();
@@ -25,8 +22,6 @@ public:
     int getC();
     void setDisplay(textDisplay &td);
     void setPos(int r, int c); 
-    virtual bool checkMatch();
-    virtual void notify(int r, int c, char d); //
     ~Square()=0;
 };
 
