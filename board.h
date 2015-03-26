@@ -10,6 +10,8 @@ class Board{
     int score;
     void clearBoard();
     std::string leftover;
+    int len_leftover;
+    int generated;
 public:
     Board();
     void init(std::ifstream &f);
