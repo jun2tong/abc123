@@ -16,7 +16,17 @@ public:
     void init(int seed);
     bool validMove(); //check if the move is valid
     void scramble();
+    void swap(int r, int c, char d);
     bool checkMatch(); // checks whether there exists a row of 3 or column of 3 of the same color
+    void resolveMatch();
+    void check5Row();
+    void check5Column();
+    void check4Row();
+    void check4Column();
+    void checkL1();
+    void checkL2();
+    void checkL3();
+    void checkL4()
     void updateBoard(); // recursive function that is called after a swap is made to fill in the board and check for matches
     void hint(); //prints a square or return a move
     void mutateBoard(int r, int c, int c, char t, char s);
