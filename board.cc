@@ -6,10 +6,6 @@
 #include "square.h"
 using namespace std;
 
-//class Board{
-//  Square *theBoard[10][10];
-//  int level;
-//  int score;
 void Board::clearBoard(){
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
@@ -39,19 +35,6 @@ Board::Board(ifstream &f):level(0),score(0){
     cout << leftover << endl;
 }
 
-
-//  Board(int seed);
-//  bool validMove(); //check if there are anymore moves left
-//  void scramble();
-//  void hint(); //prints a square or return a move
-//  void mutateBoard(int x, int y, int c, char t=0, char s=0);
-//  void swap(int x, int y, char d);
-//  void fillBoard(int l);
-//  Square getBoard();
-//  int getLevel();
-//  int getScore();
-//  void setLevel(int l);
-//  void setScore(int s);
 
 void Board::swap(int r, int c, char z) {
 	int tempColor;
