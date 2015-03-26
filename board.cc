@@ -186,6 +186,7 @@ void Board::check5Row() {
 						theBoard[lateralR][i3]->setType('-')
 					}
 				}
+			}
 		}
 	}
 }
@@ -253,6 +254,7 @@ void Board::check5Column() {
 						theBoard[lateralR][i3]->setType('-')
 					}
 				}
+			}
 		}
 	}
 }
@@ -318,6 +320,7 @@ void Board::check4Row() {
 						theBoard[lateralR][i3]->setType('-')
 					}
 				}
+			}
 		}
 	}
 }
@@ -383,6 +386,7 @@ void Board::check4Column() {
 						theBoard[lateralR][i3]->setType('-')
 					}
 				}
+			}
 		}
 	}
 }
@@ -722,7 +726,7 @@ void Board::resolveMatches() {
 		checkL3();
 		checkL4();
 	}
-	// add recursive method to fill in all the squares with '-' type
+	// add method to fill in all the squares with '-' type
 }
 
 Board::~Board(){
