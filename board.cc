@@ -39,6 +39,17 @@ Board::Board(ifstream &f):level(0),score(0){
     cout << leftover << endl;
 }
 
+// getters & setters
+int Board::getScore() {
+	return score;
+}
+
+void Board::setScore(int incr) {
+	score += incr;
+}
+
+
+
 
 //  Board(int seed);
 //  bool validMove(); //check if there are anymore moves left
