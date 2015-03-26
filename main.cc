@@ -76,26 +76,26 @@ int main(int argc, char* argv[]) {
         else if (s == "levelup") {
             if (mainBoard->getLevel() == 0) {
                 mainBoard = new Board1;
-                                                                                                                                                                                                   }
+            }
             else if (mainBoard->getLevel() == 1) {
                 mainBoard = new Board2;
             }
         }
         else if (s == "leveldown") {
             if (mainBoard->getLevel() == 2) {
-                delete mainBoard;
+                delete [] mainBoard;
                 mainBoard = NULL;
                 mainBoard = new Board1;
             }
             else if (mainBoard->getLevel() == 1) {
-                delete mainBoard;
+                delete [] mainBoard;
                 mainBoard = NULL;
                 mainBoard = new Board0;
             }
         }
         else if (s == "restart") {
             level = mainBoard->getLevel();
-            delete mainBoard;
+            delete [] mainBoard;
             mainBoard = NULL;
             if (level == 0) {
                 mainBoard = new Board0;
