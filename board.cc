@@ -35,16 +35,20 @@ void Board::init(ifstream &f){
 }
 
 //init for the board1 only, need to adjust again for the actual probability. Board0 is initialized using sequence.txt
-void Board::init(int seed){
+void Board::init(int seed, int lvl){
     srand(seed);
-    int color;
-    for(int i=0;i<10;i++){
-        for(int j=0;j<10;j++){
-        	color = rand()%5;
-            theBoard[i][j] = new Square(i,j,color,'_',t);
-        }
-    }
-}
+    if(lvl==2){
+    	int color;
+    	for(int i=0;i<10;i++){
+        	for(int j=0;j<10;j++){
+        		color = rand()%5;
+            	theBoard[i][j] = new Square(i,j,color,'_',t);
+        	}
+    	}
+	}
+	else if(lvl==1){
+		
+	}
 
 // getters & setters
 int Board::getScore() {
