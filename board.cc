@@ -288,10 +288,102 @@ void Board::hint(){
 			}
 		}
 	}
-	//check for horizontal match
+	//need to do the first and last column
+		//check for horizontal match without border (mid)
 	for(int i=1;i<9;i++){
-		for(int j=0;j<10;j++){
+		for(int j=1;j<9;j++){
+			//check the (n-1) board
+			if(i==1&&j==1){}
+			else if(i==1&&j==8){}
+			else if(i==8&&j==1){}
+			else if(i==8&&j==8){}
 			
+			
+			
+			
+			
+			first = theBoard[i][j-1]->getColour();
+			second = theBoard[i-1][j]->getColour();
+			third = theBoard[i][j+1]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			second = theBoard[i+1][j]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			//check for vertical match without border (mid)
+			first = theBoard[i-1][j]->getColour();
+			second = theBoard[i][j+1]->getColour();
+			third = theBoard[i+1][j]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			second = theBoard[i][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+		}
+	}
+	
+	for(int i=2;i<7;i++){
+		for(int j=2;j<7;i++){
+			//north
+			first = theBoard[i-2][j]->getColour();
+			second = theBoard[i-1][j]->getColour();
+			third = theBoard[i][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			third = theBoard[i][j+1]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			//south
+			first = theBoard[i+2][j]->getColour();
+			second = theBoard[i+1][j]->getColour();
+			third = theBoard[i][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			third = theBoard[i][j+1]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			//east
+			first = theBoard[i][j+1]->getColour();
+			second = theBoard[i][j+2]->getColour();
+			third = theBoard[i-1][j]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			third = theBoard[i+1][j]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			//west
+			first = theBoard[i][j-1]->getColour();
+			second = theBoard[i][j-2]->getColour();
+			third = theBoard[i-1][j]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
+			third = theBoard[i+1][j]->getColour();
+			if(first==second&&second==third){
+				cout << i << " " << j << endl;
+				break;
+			}
 		}
 	}
 	
