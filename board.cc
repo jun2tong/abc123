@@ -22,11 +22,11 @@ void Board::clearBoard(){
 //public:
 Board::Board():level(0),score(0){}
 
-Board::Board(ifstream &f):level(0),score(0){
+//initializer for Board0
+void Board::init(ifstream &f){
     string aline;
     for(int i=0;i<10;i++){
         getline(f,aline);
-        cout << aline << " this is aline" << endl;
         istringstream ss1(aline);
         for(int j=0;j<10;j++){
             int c;
@@ -36,7 +36,18 @@ Board::Board(ifstream &f):level(0),score(0){
         }
     }
     f >> leftover;
-    cout << leftover << endl;
+}
+
+//init for the board1 only, need to adjust again for the actual probability. Board0 is initialized using sequence.txt
+void Board::init(int seed){
+    srand(seed);
+    int color;
+    for(int i=0;i<10;i++){
+        for(int j=0;j<10;j++){
+        	color = rand()%5;
+            theBoard[i][j] = new Square(i,j,color,'_',t);
+        }
+    }
 }
 
 // getters & setters
@@ -48,21 +59,216 @@ void Board::setScore(int incr) {
 	score += incr;
 }
 
+//void Board::scramble();
 
-
-
-//  Board(int seed);
-//  bool validMove(); //check if there are anymore moves left
-//  void scramble();
-//  void hint(); //prints a square or return a move
-//  void mutateBoard(int x, int y, int c, char t=0, char s=0);
-//  void swap(int x, int y, char d);
-//  void fillBoard(int l);
-//  Square getBoard();
-//  int getLevel();
-//  int getScore();
-//  void setLevel(int l);
-//  void setScore(int s);
+void Board::hint(){
+	int first,second,third;
+	//fix the first row
+	for(int j=0;j<10;j++){
+		if(j==0){
+			first = theBoard[1][j]->getColour();
+			second = theBoard[0][j+1]->getColour();
+			third = theBoard[0][j+2]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[2][j]->getColour();
+			thrid = theBoard[0][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+		else if(j==1){
+			first = theBoard[1][j]->getColour();
+			second = theBoard[0][j+1]->getColour();
+			third = theBoard[0][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			third = theBoard[0][j+2]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j]->getColour();
+			third = theBoard[2][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+		else if(j==9){
+			first = theBoard[1][j]->getColour();
+			second = theBoard[0][j-1]->getColour();
+			third = theBoard[0][j-2]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j]->getColour();
+			third = theBoard[2][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+		else if(j==8){
+			first = theBoard[1][j]->getColour();
+			second = theBoard[0][j+1]->getColour();
+			third = theBoard[0][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j-2]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j]->getColour();
+			third = theBoard[2][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+		else{
+			first = theBoard[1][j]->getColour();
+			second = theBoard[0][j+1]->getColour();
+			third = theBoard[0][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j-2]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j+1]->getColour();
+			third = theBoard[0][j+2]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+			second = theBoard[0][j]->getColour();
+			third = theBoard[2][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+	}
+	//fix last row
+	for(int j=0;j<10;j++){
+		if(j==0){
+			first = theBoard[8][j]->getColour();
+			second = theBoard[9][j+1]->getColour();
+			third = theBoard[9][j+2]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[7][j]->getColour();
+			thrid = theBoard[9][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+		else if(j==1){
+			first = theBoard[8][j]->getColour();
+			second = theBoard[9][j+1]->getColour();
+			third = theBoard[9][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			third = theBoard[9][j+2]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j]->getColour();
+			third = theBoard[7][j]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+		}
+		else if(j==9){
+			first = theBoard[8][j]->getColour();
+			second = theBoard[9][j-1]->getColour();
+			third = theBoard[9][j-2]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j]->getColour();
+			third = theBoard[7][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+		else if(j==8){
+			first = theBoard[8][j]->getColour();
+			second = theBoard[9][j+1]->getColour();
+			third = theBoard[9][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j-2]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j]->getColour();
+			third = theBoard[7][j]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+		}
+		else{
+			first = theBoard[8][j]->getColour();
+			second = theBoard[9][j+1]->getColour();
+			third = theBoard[9][j-1]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j-2]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j+1]->getColour();
+			third = theBoard[9][j+2]->getColour();
+			if(first==second&&second==third){
+				cout << "9 " << j << endl;
+				break;
+			}
+			second = theBoard[9][j]->getColour();
+			third = theBoard[7][j]->getColour();
+			if(first==second&&second==third){
+				cout << "0 " << j << endl;
+				break;
+			}
+		}
+	}
+	//check for horizontal match
+	for(int i=1;i<9;i++){
+		for(int j=0;j<10;j++){
+			
+		}
+	}
+	
+}
 
 void Board::swap(int r, int c, char z) {
 	int tempColor;
