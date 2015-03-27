@@ -6,10 +6,6 @@
 #include "square.h"
 using namespace std;
 
-//class Board{
-//  Square *theBoard[10][10];
-//  int level;
-//  int score;
 void Board::clearBoard(){
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
