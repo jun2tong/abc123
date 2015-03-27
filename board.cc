@@ -59,7 +59,34 @@ void Board::setScore(int incr) {
 	score += incr;
 }
 
-//void Board::scramble();
+void Board::scramble(){
+	Square *temp[10][10]; //might have memory issue here. by pass using vector or something
+	int changed = 0;
+	int i=0;
+	int j = 0;
+	while(changed < 100){
+		r = rand()%10;
+		c = rand()%10;
+		if(temp[r][c]==NULL){
+			int color = theBoard[i][j]->getColour();
+			char spe = theBoard[i][j]->getSpecial();
+			char typ = theBoard[i][j]->getType();
+			temp[r][c] = new Square(r,c,color,spe,typ);
+			delete [] theBoard[i][j];
+			j++;
+			if(j==10){
+				j = 0;
+				i++;
+			}
+			changed++;
+		}
+	}
+	for(int r=0;r<10;r++){
+		for(int c=0;c<10;c++){
+			theBoard[r][c] = temp[r][c];
+		}
+	}
+}
 
 void Board::hint(){
 	int first,second,third;
