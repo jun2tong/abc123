@@ -19,7 +19,7 @@ void Board::clearBoard(){
 Board::Board():level(0),score(0){}
 
 //initializer for Board0
-void Board::init(ifstream &f){
+Board0::Board0(ifstream &f){
     string aline;
     for(int i=0;i<10;i++){
         getline(f,aline);
@@ -35,15 +35,161 @@ void Board::init(ifstream &f){
 }
 
 //init for the board1 only, need to adjust again for the actual probability. Board0 is initialized using sequence.txt
-void Board::init(int seed){
+Board2::Board2(int seed){
     srand(seed);
     int color;
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
-        	color = rand()%5;
+        	color = rand()%6;
             theBoard[i][j] = new Square(i,j,color,'_',t);
         }
     }
+}
+
+Square Board0::generateSquare(int r, int c){
+	int colour;
+	if(numGenerated < leftoverLen){
+		colour = leftover[numGenerated];
+		numGenerated++;
+		Square asquare = new Square(r,c,colour,'_','_');
+		return asquare;
+	}
+	else{
+		numGenerated = 0;
+		colour = leftover[numGenerated];
+		numGenerated++;
+		Square asquare = new Square(r,c,colour,'_','_');
+		return asquare;
+	}
+}
+
+//need <cstdlib>, <ctime>
+//assuming the seed is set when generating the board earlier
+Square Board1::generateSquare(int r, int c){
+	double a = rand()%10000;
+	double prob_colour = a/10000.0;
+	double prob_special = (rand()%10000)/10000.0;
+	double prob_type = (rand()%10000)/10000.0;
+	
+	if(prob_colour<=0.25){//white
+		if(prob_special<=(1.0/20.0)){
+			if(prob_type<=0.25){
+				Square asquare = new Square(r,c,0,h,'_');
+			}
+			else if(prob_type<=0.5){
+				Square asquare = new Square(r,c,0,v,'_');
+			}
+			else if(prob_type<=0.75){
+				Square asquare = new Square(r,c,0,b,'_');
+			}
+			else{
+				Square asquare = new Square(r,c,0,p,'_');
+			}
+		}
+		else{//basic
+			Square asquare = new Square(r,c,0,'_','_');
+		}
+	}
+	
+	else if(prob_colour<=0.5){//red
+		if(prob_special<=(1.0/20.0)){
+			if(prob_type<=0.25){
+				Square asquare = new Square(r,c,1,h,'_');
+			}
+			else if(prob_type<=0.5){
+				Square asquare = new Square(r,c,1,v,'_');
+			}
+			else if(prob_type<=0.75){
+				Square asquare = new Square(r,c,1,b,'_');
+			}
+			else{
+				Square asquare = new Square(r,c,1,p,'_');
+			}
+		}
+		else{//basic
+			Square asquare = new Square(r,c,1,'_','_');
+		}
+	}
+	
+	else if(prob_colour<=(2.0/3.0)){//green
+		if(prob_special<=(1.0/20.0)){
+			if(prob_type<=0.25){
+				Square asquare = new Square(r,c,2,h,'_');
+			}
+			else if(prob_type<=0.5){
+				Square asquare = new Square(r,c,2,v,'_');
+			}
+			else if(prob_type<=0.75){
+				Square asquare = new Square(r,c,2,b,'_');
+			}
+			else{
+				Square asquare = new Square(r,c,2,p,'_');
+			}
+		}
+		else{//basic
+			Square asquare = new Square(r,c,2,'_','_');
+		}
+	}
+	
+	else if(prob_colour<=(5.0/6.0)){//blue
+		if(prob_special<=(1.0/20.0)){
+			if(prob_type<=0.25){
+				Square asquare = new Square(r,c,3,h,'_');
+			}
+			else if(prob_type<=0.5){
+				Square asquare = new Square(r,c,3,v,'_');
+			}
+			else if(prob_type<=0.75){
+				Square asquare = new Square(r,c,3,b,'_');
+			}
+			else{
+				Square asquare = new Square(r,c,3,p,'_');
+			}
+		}
+		else{//basic
+			Square asquare = new Square(r,c,3,'_','_');
+		}
+	}
+	
+	else if(prob_colour<=(11.0/12.0)){//cyan
+		if(prob_special<=(1.0/20.0)){
+			if(prob_type<=0.25){
+				Square asquare = new Square(r,c,4,h,'_');
+			}
+			else if(prob_type<=0.5){
+				Square asquare = new Square(r,c,4,v,'_');
+			}
+			else if(prob_type<=0.75){
+				Square asquare = new Square(r,c,4,b,'_');
+			}
+			else{
+				Square asquare = new Square(r,c,4,p,'_');
+			}
+		}
+		else{//basic
+			Square asquare = new Square(r,c,4,'_','_');
+		}
+	}
+	else{//yellow
+		if(prob_special<=(1.0/20.0)){
+			if(prob_type<=0.25){
+				Square asquare = new Square(r,c,5,h,'_');
+			}
+			else if(prob_type<=0.5){
+				Square asquare = new Square(r,c,5,v,'_');
+			}
+			else if(prob_type<=0.75){
+				Square asquare = new Square(r,c,5,b,'_');
+			}
+			else{
+				Square asquare = new Square(r,c,5,p,'_');
+			}
+		}
+		else{//basic
+			Square asquare = new Square(r,c,5,'_','_');
+		}
+	}
+	return asquare;
 }
 
 // getters & setters
@@ -60,6 +206,11 @@ void Board::scramble(){
 	int changed = 0;
 	int i=0;
 	int j = 0;
+	for(int i=0;i<10<i++){
+		for(j=0;j<10;j++){
+			temp[i][j] = NULL;
+		}
+	}
 	while(changed < 100){
 		r = rand()%10;
 		c = rand()%10;
